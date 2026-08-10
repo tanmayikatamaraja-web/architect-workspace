@@ -209,3 +209,37 @@ are stamped with the originating Session ID.
     `scripts/` directory and no node runtime in this environment; the per-session
     HTML report was authored directly to the documented path instead, at
     `docs/sessions/SESSION_CC-20260810-q7v2.html`. Nothing committed.
+
+- [x] Place the workspace under version control and publish to GitHub
+  - Date: 2026-08-10
+  - Session: CC-20260810-t3k9
+  - What changed: `git init` (branch `main`), new `.gitignore`, and the first
+    commit `9ddd958` of all 47 tracked files — pushed to the private repo
+    `git@github.com:tanmayikatamaraja-web/architect-workspace.git`.
+  - Verification: `git push -u origin main` succeeded; local `HEAD` and
+    `origin/main` both resolve to `9ddd9589c96be339428fcecb672b2abec2e9ad0e`;
+    `git ls-tree -r origin/main` returns 47 paths including `CLAUDE.md`;
+    `ssh -T git@github.com` returns `Hi tanmayikatamaraja-web!`; author recorded
+    as `Tanmayi Katamaraja <tanmayi.katamaraja@gmail.com>`.
+  - Notes: This is the first commit in the workspace's history — every prior
+    entry above ends "Nothing committed," and all of that work landed in this
+    single initial snapshot. Those entries were left untouched per the
+    concurrent-instance rule (they carry other Session IDs).
+    **Secret scan ran before staging:** no `.env`, `.pem`, `.key`, or
+    credential-shaped files, and no matches for private-key blocks or
+    `sk-`/`AKIA`/`ghp_` token patterns. `.DS_Store` and
+    `.claude/settings.local.json` are gitignored; `.claude/skills/` is tracked
+    as shared project content. `*.log` was deliberately NOT ignored because
+    `skill-lab/orders-pipeline-failure.log` is a committed fixture.
+    **Visibility risk:** `CLAUDE.md` carries production infrastructure detail
+    (`ssh root@95.216.199.47`, `/opt/colaberry-accelerator`, internal
+    addresses). The repo is Private and must stay Private unless that content
+    is redacted first — flagged to the user at decision time and again at
+    hand-off. Also note `.claude/` is DRI-owned (Ali Muwwakkil) under CLAUDE.md
+    "Configuration Ownership"; the four skills are now published to a personal
+    account and should get DRI review.
+    A dedicated key `~/.ssh/id_ed25519_github` was generated rather than
+    reusing the existing `id_ed25519`, which authenticates to the production
+    VPS as root; `~/.ssh/config` pins github.com to the new key with
+    `IdentitiesOnly yes`. `scripts/generateSessionChangelog.js` was not run —
+    still no `scripts/` directory and no node runtime in this environment.
