@@ -1,0 +1,25 @@
+# Files Git should ignore — these never get uploaded to GitHub.
+
+# macOS clutter: invisible files Finder creates in every folder.
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Personal Claude Code settings — specific to this machine, not the project.
+# Shared project skills in .claude/skills/ ARE tracked; only this file is not.
+.claude/settings.local.json
+
+# Secrets. Nothing in this repo uses these today, but if a file like this ever
+# appears, Git will refuse to upload it. Leave this here.
+.env
+.env.*
+*.pem
+*.key
+!**/*.pub
+
+# Scratch space — CLAUDE.md defines /tmp as "always safe to delete".
+/tmp/
+
+# Dependency folders, if this project ever grows code.
+node_modules/

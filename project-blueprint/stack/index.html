@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-Med Study Desk — Tech Stack Command Center</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-section="index">
+
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Recommended Tech Stack</div>
+    <h1>Pre-Med Study Desk</h1>
+    <p class="lede">One real, current technology per component in your architecture — rated for what this project
+      actually is, not for what is popular. Eight sections, all rendered from one data object.</p>
+    <div class="stats" id="heroStats"></div>
+  </header>
+
+  <div class="callout risk" style="margin-top:26px">
+    <span class="lbl">Where this stack is most likely to break</span>
+    <p style="margin:0 0 8px"><b>Clerk, and Phase 4’s upload path.</b></p>
+    <p style="margin:0;color:var(--muted)">You would be renting identity — for people who may be 15 — from a company
+      whose bill grows with every active student, and it is the one piece here you cannot cheaply take back. And
+      because your architecture deliberately skipped a job queue, reading a PDF and asking a model to tag it both
+      happen while the student watches a spinner. Everything else is replaceable in an afternoon.</p>
+  </div>
+
+  <div class="callout" style="margin-top:16px">
+    <span class="lbl">Sitting beside this</span>
+    <p style="margin:0;color:var(--muted)">The architecture these recommendations are rated against lives in the
+      <a href="../index.html">Blueprint Command Center</a>. The written version of this stack is saved at
+      <code>project-blueprint/tech-stack.md</code>.</p>
+  </div>
+
+  <h2>Sections</h2>
+  <div class="tiles" id="tiles"></div>
+
+  <div id="askHost"></div>
+</main>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
