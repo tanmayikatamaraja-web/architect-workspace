@@ -1,0 +1,82 @@
+/* ============================================================================
+   THEME — the only place colours are defined.
+
+   No brand colours have been chosen for this project yet, so this is a
+   neutral graphite palette with one restrained accent. When the brand is
+   picked, change --accent (and optionally --accent-ink) here and nowhere
+   else. Do not put hex codes in components.
+   ========================================================================= */
+
+:root {
+  /* --- brand hook: change these two lines when the brand is chosen --- */
+  --accent:        #3f5d8f;
+  --accent-ink:    #ffffff;
+
+  /* neutrals */
+  --bg:            #f4f5f7;
+  --surface:       #ffffff;
+  --surface-2:     #f8f9fb;
+  --surface-3:     #eef0f4;
+  --border:        #dfe3ea;
+  --border-strong: #c6ccd8;
+
+  --text:          #1b1f27;
+  --text-muted:    #5a6373;
+  --text-faint:    #8b94a3;
+
+  --accent-soft:   #e8edf6;
+
+  /* status — grey is the default for "we do not know" */
+  --unknown:       #9aa3b2;
+  --ok:            #2f7a55;
+  --ok-soft:       #e3f2ea;
+  --warn:          #9a6a1b;
+  --warn-soft:     #fbf0da;
+  --danger:        #a63d3d;
+  --danger-soft:   #f8e5e5;
+
+  /* sample-data marker — deliberately loud, never mistaken for real */
+  --sample:        #7b4bb7;
+  --sample-soft:   #f1e9fb;
+  --sample-border: #d6c2ee;
+
+  --radius:        10px;
+  --radius-sm:     6px;
+  --shadow:        0 1px 2px rgba(20, 25, 35, .05), 0 4px 14px rgba(20, 25, 35, .05);
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --accent:        #7d9ed6;
+    --accent-ink:    #10141c;
+
+    --bg:            #0f1218;
+    --surface:       #161b23;
+    --surface-2:     #1b212b;
+    --surface-3:     #222935;
+    --border:        #2a313d;
+    --border-strong: #3a434f;
+
+    --text:          #e7eaf0;
+    --text-muted:    #a3acbb;
+    --text-faint:    #7b8492;
+
+    --accent-soft:   #1e2735;
+
+    --unknown:       #6f7887;
+    --ok:            #64b98c;
+    --ok-soft:       #16281f;
+    --warn:          #d1a04c;
+    --warn-soft:     #2a2113;
+    --danger:        #e07a7a;
+    --danger-soft:   #2c1919;
+
+    --sample:        #b98ce8;
+    --sample-soft:   #241a33;
+    --sample-border: #4a3766;
+
+    --shadow:        0 1px 2px rgba(0, 0, 0, .3), 0 4px 14px rgba(0, 0, 0, .25);
+  }
+}
