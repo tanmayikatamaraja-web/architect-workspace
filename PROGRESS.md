@@ -243,3 +243,50 @@ are stamped with the originating Session ID.
     VPS as root; `~/.ssh/config` pins github.com to the new key with
     `IdentitiesOnly yes`. `scripts/generateSessionChangelog.js` was not run —
     still no `scripts/` directory and no node runtime in this environment.
+
+## Week 2 — Command Center
+
+- [x] Build the Command Center Overview tab and connect the folder to Colaberry
+  - Date: 2026-08-17
+  - Session: CC-20260817-h4x9
+  - What changed: New `command-center/` — a dependency-free static site (ES
+    modules, hash router, 9-tab shell) for the AI SAT Study Agent project.
+    Overview tab built in full with seven drill-down detail pages; tabs 2–9 are
+    reachable and render an honest "not built yet" state. All project facts
+    (18 requirements, 16 stories, 5 releases, 3 guardrails, 1 system, 11 story
+    owners, milestones) live in a single module, `command-center/data/project.js`;
+    no view file contains a project fact. A global Sample/Real switch is backed by
+    `command-center/data/sample.js`, which may only fill gaps real mode does not
+    know and never contradicts a real fact. Also added `.colaberry/connect.txt`
+    (Colaberry pairing ID, expires in 7 days, grants no access).
+  - Verification: Rendered headless in Chrome at
+    `http://localhost:8777/#/overview` — DOM contains 7 cards, "Day 3 of 9",
+    "No build-status source is connected"; drill-down `#/overview/current-release`
+    lists all four r0 stories with status "Not tracked"; stub route `#/plan`
+    renders "Not built yet". Screenshotted in Real and Sample modes and in both
+    light and dark themes. All 11 static assets return 200. `git ls-tree -r
+    origin/main` shows 13 `command-center/` paths plus `.colaberry/connect.txt`
+    at commit `d2691cf`.
+  - Notes: Nothing on the page claims a number, connection, or result the
+    project has not produced — 0 of 1 systems connected (grey dot, "never
+    checked"), 0 of 3 guardrails enforced, nothing live, and no completion
+    percentage, since no build-status source exists. Outcomes is an empty state
+    because the plan carries no numeric target; that is worth setting before r1.
+    **The connect snippet as given would have run in `/Users/colaberry`** — the
+    home folder, not a project folder — where `git add -A` would have pushed
+    `~/.ssh/id_ed25519` and `id_ed25519_github`, `~/.claude.json`, and ~19 GB of
+    `Library/` and `Downloads/`. Stopped and confirmed the repo root with the
+    user before running anything; `~/sat-command-center` was chosen.
+    Project nested under `command-center/` to match the existing workspace
+    convention (`project-blueprint/`, `skill-lab/`) rather than scattering
+    `index.html`, `assets/`, `data/`, `js/` across the repo root, and the
+    snippet's weaker `.gitignore` was dropped in favour of the one already on
+    `main` (it covers `*.pem`, `*.key`, `.DS_Store`). Remote switched from HTTPS
+    to SSH because no HTTPS credential is available in this non-interactive
+    shell. Rebased onto the three existing commits with
+    `--allow-unrelated-histories`; no conflicts, no force push.
+    `scripts/generateSessionChangelog.js` was not run — still no `scripts/`
+    directory and no node runtime in this environment.
+    The prior session's **Private-repo warning still stands**: `CLAUDE.md`
+    carries production infrastructure detail (`ssh root@95.216.199.47`,
+    `/opt/colaberry-accelerator`).
