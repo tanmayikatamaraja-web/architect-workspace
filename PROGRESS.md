@@ -290,3 +290,47 @@ are stamped with the originating Session ID.
     The prior session's **Private-repo warning still stands**: `CLAUDE.md`
     carries production infrastructure detail (`ssh root@95.216.199.47`,
     `/opt/colaberry-accelerator`).
+
+- [x] Build the answer key for prompt 1 of the prompt library (extract-test-summary)
+  - Date: 2026-08-20
+  - Session: CC-20260817-h4x9
+  - What changed: New `prompts/extract-test-summary/eval.jsonl` — 5 test cases,
+    one JSON object per line, each `{input: {report_text}, expected: {...}}`.
+    Four ordinary cases (canonical Bluebook paste; alternate wording with Math
+    pasted first and a distractor "Score Range" line; a Math-only half report;
+    a lowercase/abbreviated/dot-leader paste needing name normalisation) and one
+    deliberately awkward case (no test name, no total, Reading and Writing given
+    as raw 34/54, an unknown "?/13" count, one category absent entirely).
+    Test cases were written BEFORE the prompt, and every expected answer was
+    proposed to the user and confirmed by them one at a time — the answer key is
+    the user's, not the model's. The prompt itself is deliberately NOT written yet.
+  - Verification: Structural check over all 5 rows passes — identical top-level
+    keys in identical order, `section_scores` always carries both keys,
+    all 26 category rows use canonical section/category names, categories appear
+    in fixed canonical order (Reading and Writing then Math), `correct +
+    incorrect == total` on every row, and `issues` is non-empty exactly when
+    `needs_review` is true. File parses as JSONL: 5 lines, 5985 bytes.
+  - Notes: Shape settled by the confirmed cases and now binding on the prompt to
+    be written next: `test_name` (text|null), `total_score` (int|null),
+    `section_scores.{reading_writing,math}` (int|null), `categories[]` of
+    `{section, category, correct, incorrect, total}`, `needs_review` (bool),
+    `issues` (list of text). Three decisions are worth remembering because they
+    protect the NEXT prompt in the chain (rank-weak-categories): (1) an
+    unattempted category is ABSENT, never present with `correct: 0`, because 0
+    means attempted-and-failed and confusing the two would rank a student weak in
+    a section they never sat; (2) missing values are visible `null`s rather than
+    absent keys, so the shape never varies; (3) `needs_review`/`issues` were
+    added by case 5 and retrofitted onto cases 1-4 in the same commit to keep
+    that invariant. `issues` is free text and will be scored loosely (non-empty,
+    roughly on-topic); `needs_review` is the strictly scoreable part.
+    **Dropped a field I had earlier proposed:** time-spent-per-category. Bluebook
+    score reports do not carry it, and inventing minutes that were never in the
+    input would violate REQ-007's accuracy promise at the ingest layer.
+    Not yet covered by the answer key, and flagged to the user as cases 6-8: a
+    category name outside the official eight, a genuine 0-of-12 score, and input
+    that is not a score report at all.
+    Session-ID date note: the ID was minted on 2026-08-17 when the machine clock
+    read that date; this entry is dated 2026-08-20, the clock's current date.
+    Same continuous session, so the ID was reused rather than re-minted.
+    `scripts/generateSessionChangelog.js` still absent and no node runtime here,
+    so no session HTML was regenerated.
